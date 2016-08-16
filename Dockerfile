@@ -7,7 +7,10 @@ WORKDIR /usr/src/app
 
 COPY package.json /usr/src/app/
 RUN npm install
-COPY . /usr/src/app
+COPY ./public /usr/src/app
+COPY ./router /usr/src/app
+COPY ./ums.js /usr/src/app
+COPY ./views /usr/src/app
 
 CMD ["node", "ums.js"]
 

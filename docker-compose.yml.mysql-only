@@ -1,0 +1,17 @@
+version: '2'
+services:
+  mysql:
+    container_name: "mp2p-mysql"
+    image: mysql
+    restart: always
+    ports: 
+      - "3306:3306"
+    volumes:
+      - "./db:/var/lib/mysql"
+      - "./schema:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: UMSdb
+      MYSQL_USER: ums
+      MYSQL_PASSWORD: ums
+

@@ -2,7 +2,7 @@
 var mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit: 3,
-    host: 'localhost',
+    host: 'mysql',
     user: 'ums',
     database: 'UMSdb',
     password: 'ums'
