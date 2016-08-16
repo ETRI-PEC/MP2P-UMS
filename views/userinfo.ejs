@@ -1,0 +1,56 @@
+
+
+<html>
+    <head>
+    <title> <%= title %></title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <script type="text/javascript">
+        function onclick_userlist(id, cnf1, cnf2) {
+            document.getElementById("client_cnf").value = cnf1;
+            document.getElementById("prep_cnf").value = cnf2;
+        }
+
+    </script>
+<body>
+
+<div id="side_left">
+<form action="/register" method="POST">
+    <input type="text" name="new_id">  
+    <input type="submit" value="+">
+</form>
+
+<% 
+    for(var i=0; i<rows.length; i++) {
+        var oneItem = rows[i]; 
+%>
+    <!-- <div id="side_list" onclick="location.href='/about'"> -->
+    <div id="side_list" onclick="onclick_userlist('<%= oneItem.user_id %>', '<%= oneItem.client_cnf %>', '<%= oneItem.prep_cnf %>')">
+    <%= oneItem.user_id %>
+    </div> 
+<%
+     }
+%>
+<br>
+
+
+</div>
+
+
+<form action="/update" method=post>
+<div id="side_center">
+    <p>config.ini</p>
+    <textarea rows=10 cols=70 id="client_cnf" name="client_cnf"> <%=client_cnf %>
+    </textarea>
+    <br>
+    <p>prepagent.conf</p>
+    <textarea rows=10 cols=70 id="prep_cnf" name="prep_cnf"/> <%=prep_cnf %>
+    </textarea>
+    <p align="right"> <input type=submit value=SAVE></p>
+</div>
+
+</form>
+
+
+</body>
+</html>

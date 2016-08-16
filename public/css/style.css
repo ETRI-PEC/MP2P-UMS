@@ -1,0 +1,88 @@
+body {
+  background-color: black;
+  color: white;
+  
+}
+a:visited {
+  color: yellow;
+}
+a:link {
+  color: yellow;
+}
+
+div#side_left {
+  display: block;
+  position: fixed;
+  margin-top: 10px;
+  left: 10px;
+  top: 10px;
+  width: 200px;
+  height: 500px;
+  background-color: black;
+}
+
+div#side_list {
+  /*display: block;*/
+  display: inline-table;
+  margin-left: 5px;
+  margin-top : 3px;
+  /*margin-bottom: 5px;*/
+  width : 125px;
+  height : 25px;
+  background-color: lightblue;
+  color: purple;
+}
+
+div#side_list_delete {
+  /*display: block;*/
+  display: inline-table;
+  margin-left: 5px;
+  margin-top : 3px;
+  width : 20px;
+  height : 25px;
+  background-color: lightcoral;
+  align-content: center;
+  text-align: center;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+  right:0;
+}
+
+div#side_list_update {
+  /*display: block;*/
+  display: inline-table;
+  margin-left: 5px;
+  margin-top : 3px;
+  width : 20px;
+  height : 25px;
+  background-color: olivedrab;
+  align-content: center;
+  text-align: center;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+  right:0;
+}
+
+div#side_list:hover {
+  display: inline-table;
+  margin-left: 15px;
+  margin-top : 3px;
+  /*margin-bottom: 5px;*/
+  width : 125px;
+  height : 25px; 
+  background-color: lightsalmon;
+  cursor: pointer;
+}
+
+div#side_center {
+  display: block;
+  position: fixed;
+  margin-top: 10px;
+  margin-left: 60px;
+  left: 210px;
+  width: 400px;
+  height: 500px;
+/*  background-color: lightskyblue; */
+}

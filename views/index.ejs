@@ -1,0 +1,85 @@
+<html>
+    <head>
+    <title> <%= title %></title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>
+        var jsonstr = '<%- JSON.stringify(rows) %>';
+        jsonstr = jsonstr.replace(/\n/gi,"\\r\\n");
+        var parsed = JSON.parse(jsonstr);
+        var arr = [];
+        for(var x in parsed) {
+            arr.push(parsed[x]);
+        }
+
+        
+
+        function onClick1(idx) {
+            document.getElementById("client_cnf").value = arr[idx].client_cnf.replace(/<br\s*\/?>/mg,"\n");
+            document.getElementById("prep_cnf").value = arr[idx].prep_cnf.replace(/<br\s*\/?>/mg,"\n");
+            document.getElementById("user_id").value = arr[idx].user_id;
+            document.getElementById("api_clientconfig").innerHTML = "<a href='/user/" + arr[idx].user_id + "/config'>config.ini</a>";
+            document.getElementById("api_prepconfig").innerHTML = "<a href='/user/" + arr[idx].user_id + "/prepagent'>prepagent.conf</a>";
+        }
+
+        function onClickDelete(idx) {
+            if(confirm("R U Sure?"))
+            {
+                url = "/delete/" + arr[idx].user_id;
+                window.location = url;
+            }
+
+        }
+
+    </script>
+    </head>
+<body>
+
+<div id="side_left" style="margin:0 auto;">
+<form action="/register" method="POST">
+    <input type="text" name="new_id">  
+    <input type="submit" value="+">
+</form>
+
+<% 
+    for(var i=0; i<rows.length; i++) {
+        var oneItem = rows[i]; 
+%>
+  
+    <div id="side_list" onclick="onClick1(<%=i%>)" "> <%= oneItem.user_id %> </div>
+    <div id="side_list_delete" onclick="onClickDelete(<%=i%>)" >D</div>
+    
+  
+<%
+     }
+%>
+
+<br>
+
+
+</div>
+
+<form action="/update" method="POST">
+<div id="side_center">
+    <input type="text" id="user_id" name="user_id" value="" size=50>
+
+    <p id="api_clientconfig">config.ini</p>
+    <textarea rows=10 cols=50 id="client_cnf" name="client_cnf"> 
+    </textarea>
+    <br>
+    <p id="api_prepconfig">prepagent.conf</p>
+    <textarea rows=10 cols=50 id="prep_cnf" name="prep_cnf"/> 
+    </textarea>
+    <p align="center"> <input type=submit value="UPDATE"></p>  
+
+</div>
+
+</form>
+
+
+</body>
+</html>
+
+
+
+</body>
+</html>

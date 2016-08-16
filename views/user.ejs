@@ -1,0 +1,24 @@
+<html>
+    <head>
+    <title> <%= title %></title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+<body>
+
+    <form action="/update" method=post>
+    <div id="side_center">
+        <p>config.ini</p>
+        <textarea rows=10 cols=70 id="client_cnf" name="client_cnf"><%=client_cnf %>
+        </textarea>
+        <br>
+        <p>prepagent.conf</p>
+        <textarea rows=10 cols=70 id="prep_cnf" name="prep_cnf"/><%=prep_cnf %>
+        </textarea>
+        <p align="right"> <input type=submit value=SAVE></p>
+    </div>
+
+    </form>
+
+
+</body>
+</html>
