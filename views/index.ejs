@@ -17,6 +17,7 @@
             document.getElementById("client_cnf").value = arr[idx].client_cnf.replace(/<br\s*\/?>/mg,"\n");
             document.getElementById("prep_cnf").value = arr[idx].prep_cnf.replace(/<br\s*\/?>/mg,"\n");
             document.getElementById("user_id").value = arr[idx].user_id;
+            document.getElementById("ip_address").value = arr[idx].ip_address;
             document.getElementById("api_clientconfig").innerHTML = "<a href='/user/" + arr[idx].user_id + "/config'>config.ini</a>";
             document.getElementById("api_prepconfig").innerHTML = "<a href='/user/" + arr[idx].user_id + "/prepagent'>prepagent.conf</a>";
         }
@@ -53,23 +54,29 @@
      }
 %>
 
-<br>
-
-
 </div>
 
 <form action="/update" method="POST">
 <div id="side_center">
-    <input type="text" id="user_id" name="user_id" value="" size=50>
-
-    <p id="api_clientconfig">config.ini</p>
-    <textarea rows=10 cols=50 id="client_cnf" name="client_cnf"> 
-    </textarea>
-    <br>
-    <p id="api_prepconfig">prepagent.conf</p>
-    <textarea rows=10 cols=50 id="prep_cnf" name="prep_cnf"/> 
-    </textarea>
-    <p align="center"> <input type=submit value="UPDATE"></p>  
+    <table border=0>
+        <tr>
+            <td> ID </td>
+            <td> <input type="text" id="user_id" name="user_id" value="" size=51> </td>
+        </tr>
+        <tr>
+            <td>ip address</td>
+            <td> <input type="text" id="ip_address" name="ip_address" value="" size=51> </td>
+        </tr>
+        <tr>
+            <td><p id="api_clientconfig">config.ini</p></td>
+            <td><textarea rows=10 cols=50 id="client_cnf" name="client_cnf"> </textarea> </td>
+        </tr>
+        <tr>
+            <td><p id="api_prepconfig">prepagent.conf</p></td>
+            <td><textarea rows=10 cols=50 id="prep_cnf" name="prep_cnf"/> </textarea> </td>
+        </tr>
+        <tr> <td colspan=2 align=center><input type=submit value="UPDATE"></p></td></tr>
+    </table>  
 
 </div>
 

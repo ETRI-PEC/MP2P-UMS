@@ -2,7 +2,7 @@
 var mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit: 3,
-    host: 'mysql',
+    host: 'localhost',
     user: 'ums',
     database: 'UMSdb',
     password: 'ums'
@@ -59,7 +59,7 @@ module.exports = function(app)
     ////////////////////////////////////////////////
     app.get('/', function(req, res) {
         pool.getConnection(function(err, connection) {
-            var sqlForSelectList="SELECT user_id, client_cnf, prep_cnf from UMStbl";
+            var sqlForSelectList="SELECT user_id, client_cnf, prep_cnf, ip_address from UMStbl";
             if(err) console.error("err : " + err);
             
             if(!err)
@@ -86,7 +86,7 @@ module.exports = function(app)
         if(user_id)
         {
             pool.getConnection(function(err, connection) {
-                var sqlForSelectList="SELECT user_id, client_cnf, prep_cnf from UMStbl where user_id ='" + req.params.user_id + "'";
+                var sqlForSelectList="SELECT user_id, client_cnf, prep_cnf, ip_address from UMStbl where user_id ='" + req.params.user_id + "'";
                 
                 connection.query(sqlForSelectList, function(err, rows) {
                     if(err) console.error("err : " + err);
@@ -94,6 +94,7 @@ module.exports = function(app)
                     res.render('user', {
                         title: "User Info",
                         user_id : rows[0].user_id,
+                        ip_address : rows[0].ip_address,
                         client_cnf : rows[0].client_cnf.replace(/<br\s*\/?>/mg,"\n"),
                         prep_cnf : rows[0].prep_cnf.replace(/<br\s*\/?>/mg,"\n")
                     });
@@ -106,6 +107,7 @@ module.exports = function(app)
             res.render('user', {
                     title: "User Info",
                     user_id : user_id,
+                    ip_address : "empty",
                     client_cnf : "empty",
                     prep_cnf : "empty"
             });
@@ -185,6 +187,7 @@ module.exports = function(app)
         var user_id=req.body.user_id;
         var prep_cnf=req.body.prep_cnf;
         var client_cnf=req.body.client_cnf;
+        var ip_address=req.body.ip_address;
 
         prep_cnf = prep_cnf.replace(/\r?\n/g, '<br/>');
         client_cnf = client_cnf.replace(/\r?\n/g, '<br/>');
@@ -194,10 +197,11 @@ module.exports = function(app)
         // console.log(client_cnf);
 
         pool.getConnection(function(err, connection) {
-            var sqlForUpdate="UPDATE UMStbl SET client_cnf = '" + client_cnf + "', prep_cnf = '" + prep_cnf + "' \
+            var sqlForUpdate="UPDATE UMStbl SET client_cnf = '" + client_cnf + "', prep_cnf = '" + prep_cnf + "', \
+                                    ip_address = '" + ip_address + "' \
                                     WHERE user_id = '" + user_id + "'";
                                  
-            if(err) console.error("err : " + err);
+            if(err) console.error("err : " + err + " : " + sqlForUpdate);
             
             if(!err)
             connection.query(sqlForUpdate, function(err, rows) {
@@ -208,6 +212,28 @@ module.exports = function(app)
             });
         })       
     });
+
+    app.post('/startup', function(req, res) {
+        pool.getConnection(function(err, connection) {
+            var sqlForSelectList="SELECT user_id, client_cnf, prep_cnf, ip_address from UMStbl";
+            if(err) console.error("err : " + err);
+            
+            if(!err)
+            connection.query(sqlForSelectList, function(err, rows) {
+                if(err) console.error("err : " + err);
+
+                res.render('index', {
+                    title: "LIST of peers",
+                    rows: rows
+                });
+                connection.release();
+            });
+        })
+                
+        net.connect({})
+
+    })
+
     ////////////////////////////////////////////////
     // 유저 삭제
     ////////////////////////////////////////////////
