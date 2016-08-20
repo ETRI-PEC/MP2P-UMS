@@ -1,5 +1,5 @@
 var net = require('net');
-var port = 7001;
+var port = 7777;
 
 if(!process.argv[2]) {
     //console.error("[Usage] " + process.argv[0] + " " + process.argv[1] + " [port]");
