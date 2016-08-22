@@ -3,7 +3,8 @@ var net = require('net');
 var port = 7777;
 var pool = mysql.createPool({
     connectionLimit: 3,
-    host: 'localhost',
+    host: 'uprep.etri.re.kr',
+    port: 3307,
     user: 'ums',
     database: 'UMSdb',
     password: 'ums'
@@ -47,7 +48,11 @@ stdin.addListener("data", function(d) {
         {
             list = getList(sendCommand, "STOP");
         }
-        else { console.log("command list : list, start, stop, fcopy")}
+        else if(command == 'kill')
+        {
+            list = getList(sendCommand, "KILL");
+        }
+        else { console.log("command list : list, start, stop, fcopy, kill")}
 
   });
 
@@ -88,8 +93,8 @@ function sendCommand(ip_address, cmd)
 
         });
         this.on('timeout', function() {
-            //console.log("Closing socket due to timeout");
-            this.destroy();
+            // console.log("Closing socket due to timeout");
+            // this.destroy();
         });
         this.on('close', function() {
 
