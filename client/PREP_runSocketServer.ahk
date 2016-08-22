@@ -91,8 +91,14 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
         if(bdata="FCOPY") {
             Run "PREP_copyFiles.ahk"
             }
-        if(bdata="RUN") {
+        if(bdata="START") {
             Run "PREP_runPlayer.ahk"
+            }
+        if(bdata="STOP") {
+            Run "PREP_stopPlayer.ahk"
+            }    
+        if(bdata="KILL") {
+            Run "PREP_killPlayer.ahk"
             }
     }
 }

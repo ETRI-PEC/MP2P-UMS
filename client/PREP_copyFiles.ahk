@@ -8,7 +8,7 @@ BSRCDIR=""
 ;;; Read Config(ahtrun.cnf) File
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-Loop, read, ahtrun.cnf
+Loop, read, C:\MP2P\ahtrun.cnf
 {
 	ArrayCount := 0
 	Loop, parse, A_LoopReadLine, %A_Tab%
