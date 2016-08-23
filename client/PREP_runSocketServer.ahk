@@ -100,6 +100,9 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
         if(bdata="KILL") {
             Run "PREP_killPlayer.ahk"
             }
+        if(bdata="FULL") {
+            Run "PREP_setfullPlayer.ahk"
+            }            
     }
 }
 return
