@@ -86,14 +86,26 @@ function getList(func, arg) {
 function sendCommand(ip_address, cmd) 
 {
     
+    
     var client = net.createConnection(port,ip_address);
     
     client.on('connect', function() {
         console.log("connected to " + ip_address + ":" + port);
         client.setEncoding('utf8');
         client.write(cmd);
+        client.setTimeout(500);
         //client.destroy();
     });
+    client.on('timeout', function() {
+        client.end();
+    });
+
+    client.on('error', function() {
+        console.log("error : " + ip_address);
+        client.destroy();
+
+    })
+    
     
         
  

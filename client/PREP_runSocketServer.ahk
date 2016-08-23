@@ -34,7 +34,7 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
         iPeerSocket := iSocket
 
         ;Stop listening (see comment block in CONNECTED event)
-        AHKsock_Listen(27015)
+        AHKsock_Listen(7777)
         
     } If (sEvent = "CONNECTED") {
 ;		Msgbox In Connected
@@ -50,7 +50,7 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
             Msgbox, % "Listening for a peer..."
             GuiControl,, lblStatus, Waiting for a peer... 
 
-                If (i := AHKsock_Listen(27015, "Peer")) {
+                If (i := AHKsock_Listen(7777, "Peer")) {
                     MsgBox, % "AHKsock_Listen() failed with return value = " i " and ErrorLevel = " ErrorLevel
                     ExitApp
                 }
@@ -70,11 +70,11 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
                 
     } Else If (sEvent = "DISCONNECTED") {
 ;	Msgbox In DisConnected
-        AHKsock_Listen(27015)
+        AHKsock_Listen(7777)
         AHKsock_Close()
         iPeerSocket := -1
 		if not bExiting {
-            If (i := AHKsock_Listen(27015, "Peer")) {
+            If (i := AHKsock_Listen(7777, "Peer")) {
                 Msgbox, % "AHKsock_Listen() failed with return value = " i " and ErrorLevel = " ErrorLevel
             } ;Else Msgbox, % "The peer disconnected! Exiting..."
         }
@@ -102,7 +102,8 @@ Peer(sEvent, iSocket = 0, sName = 0, sAddr = 0, sPort = 0, ByRef bData = 0, bDat
             }
         if(bdata="FULL") {
             Run "PREP_setfullPlayer.ahk"
-            }            
+            }
+                   
     }
 }
 return
