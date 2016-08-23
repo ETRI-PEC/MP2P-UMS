@@ -52,7 +52,11 @@ stdin.addListener("data", function(d) {
         {
             list = getList(sendCommand, "KILL");
         }
-        else { console.log("command list : list, start, stop, fcopy, kill")}
+        else if(command == 'full')
+        {
+            list = getList(sendCommand, "FULL");
+        }
+        else { console.log("command list : list, start, stop, fcopy, kill, full")}
 
   });
 
@@ -81,37 +85,17 @@ function getList(func, arg) {
 
 function sendCommand(ip_address, cmd) 
 {
-    console.log("\tconnected to " + ip_address + " and sent " + cmd);
-
-    var client = net.connect({port: port, host: ip_address}, function() {
-        this.setTimeout(500);
-        this.setEncoding('utf8');
-        this.on('data', function(data) {
-                
-        });
-        this.on('end', function() {
-
-        });
-        this.on('timeout', function() {
-            // console.log("Closing socket due to timeout");
-            // this.destroy();
-        });
-        this.on('close', function() {
-
-        });
-        //console.log("sending " + cmd);
-        
+    
+    var client = net.createConnection(port,ip_address);
+    
+    client.on('connect', function() {
+        console.log("connected to " + ip_address + ":" + port);
+        client.setEncoding('utf8');
+        client.write(cmd);
+        //client.destroy();
     });
-    writeData(client, cmd);
-}
-
-function writeData(socket, data){
-  var success = !socket.write(data);
-  if (!success){
-    (function(socket, data){
-      socket.once('drain', function(){
-        writeData(socket, data);
-      });
-    })(socket, data);
-  }
+    
+        
+ 
+    
 }
